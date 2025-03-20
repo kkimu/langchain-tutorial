@@ -1,5 +1,9 @@
 import { ChatAnthropic } from "@langchain/anthropic";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import {
+  AIMessageChunk,
+  HumanMessage,
+  SystemMessage,
+} from "@langchain/core/messages";
 
 const model = new ChatAnthropic({
   model: "claude-3-5-sonnet-20240620",
@@ -13,7 +17,7 @@ const messages = [
 
 const stream = await model.stream(messages);
 
-const chunks = [];
+const chunks: AIMessageChunk[] = [];
 for await (const chunk of stream) {
   chunks.push(chunk);
   console.log(`${chunk.content}|`);
